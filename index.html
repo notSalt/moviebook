@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Moviebook</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!--Bulma CSS-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ==" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/index.css">
+  <title>Moviebook | Home</title>
 </head>
-
-<body class="text-center">
-  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-    <header class="masthead mb-auto">
-      <div class="inner">
-        <h3 class="masthead-brand">Moviebook</h3>
-        <nav class="nav nav-masthead justify-content-center">
-          <a class="nav-link active" href="./">Home</a>
-          <a class="nav-link" href="./login.php">Login</a>
-          <a class="nav-link" href="./register.php">Register</a>
-        </nav>
+<body>
+  <section class="hero is-dark is-fullheight video">
+    <div class="hero-head">
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-menu">
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  <a href="/register.php" class="button is-primary"><strong>Register</strong></a>
+                  <a href="/login.php" class="button is-light">Login</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="hero-video is-transparent">
+      <video autoplay loop muted>
+        <source src="assets/background.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title">Moviebook</h1>
+        <p class="subtitle">Watch movies with friends and family with Moviebook.</p>
+        <a href="/register.php" class="button is-primary is-large is-rounded">Register now!</a>
       </div>
-    </header>
-
-    <main role="main" class="inner cover">
-      <h1 class="cover-heading">Movies for everyone.</h1>
-      <p class="lead">Watch movies with your friends and family with Moviebook.</p>
-      <p class="lead">
-        <a href="./register.php" class="btn btn-lg btn-secondary">Register now!</a>
-      </p>
-    </main>
-
-    <footer class="mastfoot mt-auto"></footer>
-  </div>
-
-  <!--Bootstrap JS-->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    </div>
+  </section>
 </body>
 </html>
