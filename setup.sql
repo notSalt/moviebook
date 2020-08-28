@@ -40,11 +40,12 @@ CREATE TABLE showings (
 -- Users Table
 CREATE TABLE users (
   user_id INT(11) NOT NULL AUTO_INCREMENT,
-  username VARCHAR(255),
+  first_name VARCHAR(255),
+  last_name VARCHAR(255),
   email VARCHAR(255),
   password VARCHAR(255),
   phone_number VARCHAR(255),
-  is_admin BOOLEAN,
+  is_admin BOOLEAN DEFAULT 0,
   PRIMARY KEY (user_id)
 );
 
@@ -114,23 +115,23 @@ VALUES
   (2, 5, '2020-05-02', '21:00:00');
 
 -- Default values for Users
-INSERT INTO users (username, email, password, phone_number, is_admin)
+INSERT INTO users (first_name, last_name, email, password, phone_number, is_admin)
 VALUES 
-  ('Marjorie_Phillips', 'marjorie@example.com', 'test1234', '01137920', false),
-  ('Ted_Mitchelle', 'ted@example.com', 'bbbb', '015794136', false),
-  ('Ronald_Dean', 'ronald@example.com', 'johnny1', '019610599', false),
-  ('Daisy_Romero', 'daisy@example.com', 'jackpot', '0110878763', false),
-  ('Marcia_Meyer', 'marcia@example.com', 'kingpin', '014327992', false),
-  ('Nellie_Daniels', 'nellie@example.com', 'weed', '016499849', false),
-  ('Steven_Bradley', 'steven@example.com', 'blackhaw', '012705717', false),
-  ('Joel_Mcdonalid', 'joel@example.com', 'bob123', '014569253', false),
-  ('Jesse_Hakala', 'jesse@example.com', 'peeper', '01105925', false),
-  ('Jeremy_Thompson', 'jeremy@example.com', 'virginie', '014440611', false),
-  ('Yannick_Kees', 'yannick@example.com', 'chance', '0110985913', false),
-  ('Imogen_Anderson', 'imogen@example.com', 'womble', '012259308', false),
-  ('Hanna_Ward', 'hanna@example.com', 'hassan', '011882041', false),
-  ('Flora_Dumas', 'flora@example.com', 'active', '0172438441', false),
-  ('Eeli_Saarinen', 'eeli@example.com', 'prosper', '01438531', false);
+  ('Marjorie', 'Phillips', 'marjorie@example.com', 'test1234', '01137920', 0),
+  ('Ted', 'Mitchelle', 'ted@example.com', 'bbbb', '015794136', 0),
+  ('Ronald', 'Dean', 'ronald@example.com', 'johnny1', '019610599', 0),
+  ('Daisy', 'Romero', 'daisy@example.com', 'jackpot', '0110878763', 0),
+  ('Marcia', 'Meyer', 'marcia@example.com', 'kingpin', '014327992', 0),
+  ('Nellie', 'Daniels', 'nellie@example.com', 'weed', '016499849', 0),
+  ('Steven', 'Bradley', 'steven@example.com', 'blackhaw', '012705717', 0),
+  ('Joel', 'Mcdonalid', 'joel@example.com', 'bob123', '014569253', 0),
+  ('Jesse', 'Hakala', 'jesse@example.com', 'peeper', '01105925', 0),
+  ('Jeremy', 'Thompson', 'jeremy@example.com', 'virginie', '014440611', 0),
+  ('Yannick', 'Kees', 'yannick@example.com', 'chance', '0110985913', 0),
+  ('Imogen', 'Anderson', 'imogen@example.com', 'womble', '012259308', 0),
+  ('Hanna', 'Ward', 'hanna@example.com', 'hassan', '011882041', 0),
+  ('Flora', 'Dumas', 'flora@example.com', 'active', '0172438441', 0),
+  ('Eeli', 'Saarinen', 'eeli@example.com', 'prosper', '01438531', 0);
 
 -- Default values for Tickets
 INSERT INTO tickets (showing_id, user_id, seat_id)
