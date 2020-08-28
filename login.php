@@ -1,8 +1,7 @@
 <?php
-// Initialize the session
 session_start();
 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
-  header("location: success.html");
+  header("location: dashboard.php");
   exit;
 }
 
@@ -32,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           session_start();
           $_SESSION["logged_in"] = true;
           $_SESSION["user_id"] = $user_id;
-          $_SESSION["full_name"] = $first_name.$last_name;
-          header('location:success.html');
+          $_SESSION["full_name"] = $first_name." ".$last_name;
+          header('location: dashboard.php');
         } else {
           $password_err = "Invalid password.";
         }
