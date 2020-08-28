@@ -1,4 +1,11 @@
 <?php
+// Initialize the session
+session_start();
+if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
+  header("location: success.html");
+  exit;
+}
+
 include_once "php/connection.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
