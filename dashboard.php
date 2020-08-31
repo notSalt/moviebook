@@ -41,10 +41,10 @@ include_once 'php/connection.php';
           <p class="menu-label">General</p>
           <ul class="menu-list">
             <li>
-              <a class="<?php echo $_GET["list"] == "tickets" ? "is-active" : "" ?>" href="./dashboard.php?list=tickets">Your Tickets</a>
+              <a class="<?php echo (isset($_GET["list"]) && $_GET["list"] == "tickets") ? "is-active" : "" ?>" href="./dashboard.php?list=tickets">Your Tickets</a>
             </li>
             <li>
-              <a class="<?php echo $_GET["list"] == "movies" ? "is-active" : "" ?>" href="./dashboard.php?list=movies">Available Movies</a>
+              <a class="<?php echo (isset($_GET["list"]) && $_GET["list"] == "movies") ? "is-active" : "" ?>" href="./dashboard.php?list=movies">Available Movies</a>
             </li>
           </ul>
         </aside>
@@ -68,19 +68,19 @@ include_once 'php/connection.php';
 
           <header class="card-header">
             <p class="card-header-title">
-              <?php echo isset($_GET["list"]) ? ucfirst($_GET["list"]) : "Table" ?>
+              <?php echo isset($_GET["list"]) ? ucfirst($_GET["list"]) : "Please select an option" ?>
             </p>
           </header>
 
           <div class="notification is-card-toolbar">
             <div class="levels">
-              <div class="level-right">
+              <div class="level-left">
 
                 <form>
                   <div class="field has-addons">
                     <div class="control"><input type="text" placeholder="Search" class="input"></div>
                     <div class="control">
-                      <button type="submit" class="button is-primary"><span class="icon"><i class="fa fa-search"></i></span></button>
+                      <button type="submit" class="button is-info" <?php echo !(isset($_GET["list"])) ? "disabled" : "" ?>><span class="icon"><i class="fa fa-search"></i></span></button>
                     </div>
                   </div>
                 </form>
@@ -91,27 +91,48 @@ include_once 'php/connection.php';
 
           <div class="card-content">
             <table class="table is-fullwidth">
-              <thead>
-                <th>ID</th>
-                <th>Movie Name</th>
-                <th>Release Date</th>
-                <th>Studio</th>
-                <th>Category</th>
-              </thead>
-              <tbody>
-                <?php
-                $results = mysqli_query($link, "SELECT * FROM movies INNER JOIN categories ON movies.category_id=categories.category_id ORDER BY movies.movie_id");
-                while ($row = mysqli_fetch_array($results)) {
-                  print "<tr>";
-                  print "<th>".$row["movie_id"]."</th>";
-                  print "<td>".$row["movie_name"]."</td>";
-                  print "<td>".$row["release_date"]."</td>";
-                  print "<td>".$row["studio"]."</td>";
-                  print "<td>".$row["category_name"]."</td>";
-                  print "</tr>";
-                }
-                ?>
-              </tbody>
+              <?php
+              switch ($_GET["list"]) {
+                case "tickets":
+                  break;
+                case "movies":
+                  echo "
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Movie Name</th>
+                        <th>Release Date</th>
+                        <th>Studio</th>
+                        <th>Category</th>
+                      </tr>
+                    </thead>
+                  ";
+
+                  echo "<tfoot>";
+                  $filter = isset($_GET["filter"]) ? $_GET["filter"] : "";
+                  $sql = "SELECT movie_id, movie_name, release_date, studio, categories.category_name FROM movies INNER JOIN categories ON movies.category_id = categories.category_id WHERE movie_name LIKE ? ORDER BY movie_id ASC";
+                  $stmt = mysqli_prepare($link, $sql);
+                  mysqli_stmt_bind_param($stmt, "s", $filter);
+                  if (mysqli_stmt_execute($stmt)) {
+                    $result = mysqli_stmt_get_result($stmt);
+                    while ($row = mysqli_fetch_array($result)) {
+                      echo "
+                        <tr>
+                          <th>".$row["movie_id"]."</th>
+                          <td>".$row["movie_name"]."</td>
+                          <td>".$row["release_date"]."</td>
+                          <td>".$row["studio"]."</td>
+                          <td>".$row["category_name"]."</td>
+                        </tr>
+                      ";
+                    }
+                  }
+                  echo "</tfoot>";
+                  break;
+                default:
+                  break;
+              }
+              ?>
             </table>
           </div>
 
