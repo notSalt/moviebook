@@ -107,15 +107,15 @@ if (isset($_GET["movie_id"])) {
   <div class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">Edit Movie</p>
-      <button class="delete" aria-label="close"></button>
+      <a href="admin.php?edit=movies" class="delete"></a>
     </header>
     <section class="modal-card-body">
-      <form action="edit-movie.php" method="post">
+      <form id="editform" action="php/edit-movie.php" method="post">
 
         <div class="field">
           <label class="label" for="movie_id">Movie ID</label>
           <div class="control">
-            <input type="text" name="movie_id" class="input" value="<?php echo $movie_id ?>" disabled>
+            <input type="text" name="movie_id" class="input" value="<?php echo $movie_id ?>" readonly>
           </div>
         </div>
 
@@ -146,13 +146,18 @@ if (isset($_GET["movie_id"])) {
             <div class="select">
               <select name="category_name">
                 <?php
-                $sql = "SELECT category_name FROM categories";
+                $sql = "SELECT * FROM categories";
                 $stmt = mysqli_prepare($link, $sql);
                 if (mysqli_stmt_execute($stmt)) {
                   $result = mysqli_stmt_get_result($stmt);
                   while ($row = mysqli_fetch_array($result)) {
-                    $category_name = $row["category_name"];
-                    echo "<option value='$category_name'>$category_name</option>";
+                    $option_id = $row["category_id"];
+                    $option_name = $row["category_name"];
+                    if ($option_id == $category_id) {
+                      echo "<option selected value='$option_name'>$option_name</option>";
+                    } else {
+                      echo "<option value='$option_name'>$option_name</option>";
+                    }
                   }
                 }
                 ?>
@@ -164,8 +169,8 @@ if (isset($_GET["movie_id"])) {
       </form>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-success">Save changes</button>
-      <button class="button">Cancel</button>
+      <input type="submit" class="button is-success" form="editform" value="Save Changes">
+      <a href="admin.php?edit=movies" class="button">Cancel</a>
     </footer>
   </div>
 </div>

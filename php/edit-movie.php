@@ -12,12 +12,13 @@ if ($_SESSION["is_admin"] !== true) {
 include_once 'connection.php';
 
 if (isset($_POST)) {
-  $sql = "INSERT INTO movies (movie_name, studio, release_date, category_id) VALUES (?, ?, ?, ?)";
+  $sql = "UPDATE movies SET movie_name = ?, release_date = ?, studio = ?, category_id = ? WHERE movie_id = ?";
   $stmt = mysqli_prepare($link, $sql);
-  mysqli_stmt_bind_param($stmt, "sssi", $movie_name, $studio, $release_date, $category_id);
+  mysqli_stmt_bind_param($stmt, "sssii", $movie_name, $release_date, $studio, $category_id, $movie_id);
+  $movie_id = $_POST["movie_id"];
   $movie_name = trim($_POST["movie_name"]);
-  $studio = trim($_POST["studio_name"]);
-  $release_date = trim($_POST["release_date"]);
+  $release_date = $_POST["release_date"];
+  $studio = trim($_POST["studio"]);
   $category_result = mysqli_query($link, "SELECT category_id FROM categories WHERE category_name = '" . $_POST["category_name"] . "'");
   $row = mysqli_fetch_assoc($category_result);
   $category_id = $row["category_id"];
