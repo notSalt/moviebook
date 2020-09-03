@@ -67,9 +67,7 @@ include_once 'php/connection.php';
               <h1 class="title">
                 Hello, <?php echo $_SESSION["full_name"] ?>.
               </h1>
-              <h2 class="subtitle">
-                I hope you are having a great day!
-              </h2>
+              <p id="clock" class="subtitle"></p>
             </div>
           </div>
         </section>
@@ -163,6 +161,9 @@ include_once 'php/connection.php';
 
     </div>
   </div>
+
+  <!--Clock JS-->
+  <script src="js/clock.js"></script>
 </body>
 
 </html>
