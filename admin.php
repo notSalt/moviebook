@@ -33,6 +33,11 @@ include_once 'php/connection.php';
       <div class="navbar-brand">
         <p class="navbar-item brand-text">Moviebook</p>
       </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a href="php/logout.php" class="button is-light is-danger">Logout</a>
+        </div>
+      </div>
     </div>
   </nav>
   <!--Navbar END-->
