@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone_number = trim($_POST["phone_number"]);
 
     if (mysqli_stmt_execute($stmt)) {
-      header("location:login.php?new=true");
+      header("location: login.php?new=true");
     } else {
       echo "Something went wrong. Please try again later.";
     }

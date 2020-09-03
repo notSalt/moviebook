@@ -18,20 +18,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   if (empty($password_err) && empty($email_err)) {
-    $sql = "SELECT user_id, first_name, last_name, password FROM users WHERE email = ?";
+    $sql = "SELECT user_id, first_name, last_name, password, is_admin FROM users WHERE email = ?";
     $stmt = mysqli_prepare($link, $sql);
     mysqli_stmt_bind_param($stmt, "s", $param_email);
     $param_email = trim($_POST["email"]);
     if (mysqli_stmt_execute($stmt)) {
       mysqli_stmt_store_result($stmt);
       if (mysqli_stmt_num_rows($stmt) == 1) {
-        mysqli_stmt_bind_result($stmt, $user_id, $first_name, $last_name, $password);
+        mysqli_stmt_bind_result($stmt, $user_id, $first_name, $last_name, $password, $is_admin);
         mysqli_stmt_fetch($stmt);
         if ($password == $_POST["password"]) {
           session_start();
           $_SESSION["logged_in"] = true;
           $_SESSION["user_id"] = $user_id;
           $_SESSION["full_name"] = $first_name." ".$last_name;
+          $_SESSION["is_admin"] = $is_admin ? true : false;
           header('location: dashboard.php');
         } else {
           $password_err = "Invalid password.";
