@@ -71,6 +71,9 @@ include_once 'php/connection.php';
             case "movies":
               include "components/edit-movie.component.php";
               break;
+            case "tickets":
+              include "components/edit-tickets.component.php";
+              break;
             default:
               break;
           }
