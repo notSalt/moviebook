@@ -80,7 +80,7 @@ include_once 'php/connection.php';
             </p>
           </header>
           <div class="card-content">
-            <table class="table is-fullwidth">
+            <table class="table is-fullwidth is-bordered">
               <?php
               if (isset($_GET["list"])) {
                 switch ($_GET["list"]) {
@@ -125,6 +125,7 @@ include_once 'php/connection.php';
                           <th>Release Date</th>
                           <th>Studio</th>
                           <th>Category</th>
+                          <th>Action</th>
                         </tr>
                       </thead>
                     ";
@@ -142,6 +143,11 @@ include_once 'php/connection.php';
                             <td>" . $row["release_date"] . "</td>
                             <td>" . $row["studio"] . "</td>
                             <td>" . $row["category_name"] . "</td>
+                            <td>
+                              <a href=\"./dashboard.php?list=movies&selected=" . $row["movie_id"] . "\" class=\"icon has-text-dark\">
+                                <i class=\"fa fa-ticket-alt\"></i>
+                              </a>
+                            </td>
                           </tr>
                         ";
                       }
@@ -161,6 +167,8 @@ include_once 'php/connection.php';
 
     </div>
   </div>
+
+  <?php include "components/book-ticket.component.php"?>
 
   <!--Clock JS-->
   <script src="js/clock.js"></script>
