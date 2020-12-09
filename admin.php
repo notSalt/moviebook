@@ -74,6 +74,9 @@ include_once 'php/connection.php';
             case "tickets":
               include "components/edit-tickets.component.php";
               break;
+            case "categories":
+              include "components/edit-categories.component.php";
+              break;
             default:
               break;
           }
