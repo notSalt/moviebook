@@ -86,6 +86,9 @@
         ?>
       </tfoot>
     </table>
+    <form method="post" action="php/export.php">
+      <input type="submit" name="export" class="button is-success" value="Export" />
+    </form>
   </div>
 </div>
 
