@@ -51,6 +51,9 @@ include_once 'php/connection.php';
             <li>
               <a class="<?php echo (isset($_GET["list"]) && $_GET["list"] == "movies") ? "is-active" : "" ?>" href="./dashboard.php?list=movies">Available Movies</a>
             </li>
+            <li>
+              <a class="<?php echo (isset($_GET["list"]) && $_GET["list"] == "find") ? "is-active": "" ?>" href="./dashboard.php?list=find">Find Movie</a>
+            </li>
           </ul>
           <?php
           if ($_SESSION["is_admin"]) {
@@ -80,6 +83,23 @@ include_once 'php/connection.php';
             </p>
           </header>
           <div class="card-content">
+          <?php
+            if (isset($_GET["list"]) && $_GET["list"] == "find") {
+              echo "
+                <form class=\"form\" action=\"php/find-movie.php\" method=\"post\">
+                  <div class=\"field is-grouped\">
+                    <p class=\"control is-expanded\">
+                      <input required type=\"text\" class=\"input\" placeholder=\"Movie Name\" name=\"movie_name\"
+                    </p>
+                    <div class=\"control\">
+                      <input class=\"button is-success\" type=\"submit\" value=\"Find\">
+                    </div>
+                  </div>
+                </form>
+              ";
+            }
+            ?>
+            <br />
             <table class="table is-fullwidth is-bordered">
               <?php
               if (isset($_GET["list"])) {
@@ -154,6 +174,37 @@ include_once 'php/connection.php';
                     }
                     echo "</tfoot>";
                     break;
+                  case "find":
+                    echo "
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Movie Name</th>
+                          <th>Release Date</th>
+                          <th>Studio</th>
+                          <th>Category</th>
+                        </tr>
+                      </thead>
+                    ";
+                    if (isset($_GET["find"])) {
+                      $sql = "SELECT movie_id, movie_name, release_date, studio, categories.category_name FROM movies INNER JOIN categories ON movies.category_id = categories.category_id WHERE movie_id = ?";
+                      $stmt = mysqli_prepare($link, $sql);
+                      mysqli_stmt_bind_param($stmt, "s", $_GET["find"]);
+                      if (mysqli_stmt_execute($stmt)) {
+                        $result = mysqli_stmt_get_result($stmt);
+                        while ($row = mysqli_fetch_array($result)) {
+                          echo "
+                          <tr>
+                            <th>" . $row["movie_id"] . " </th>
+                            <td> " . $row["movie_name"] . "</td>
+                            <td> " . $row["release_date"] . "</td>
+                            <td> " . $row["studio"] . "</td>
+                            <td> " . $row["category_name"] . "</td>
+                          </tr>
+                          ";
+                        }
+                      }
+                    }
                   default:
                     break;
                 }
